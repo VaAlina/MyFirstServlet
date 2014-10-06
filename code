@@ -38,6 +38,7 @@ index.html
 <title>Test</title>
 </head>
 <body>
+<div class="center">
 	<form action="/forms" method="POST">
 		First name: <input type="text" name="firstname"><br> Last
 		name: <input type="text" name="lastname"><br> Occupation:
@@ -52,6 +53,7 @@ index.html
 			<input type="radio" name="check" value="no">no<br>
 			<button>Отправить</button>
 		</form>
+</div>
 </body>
 </html>
 
@@ -68,7 +70,7 @@ import javax.servlet.http.*;
 public class FormsServlet extends HttpServlet {
 	private static final String HTML = "<html>"
 			+ "<head><title>Test</title><link rel='stylesheet' href='style.css'></head>"
-			+ "<body><h1> %s </h1></body>" + "</html>";
+			+ "<body><div class= 'center'> %s </div></body></html>";
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -83,11 +85,13 @@ public class FormsServlet extends HttpServlet {
 		
 		if ("female".equals(answer))
 			r1 = String.format(HTML, "Sorry. No female!!!");
-		else
-			r1 = String.format(HTML, ":(");
+		else 
+			r1 = String.format(HTML, "Wellcome" + firstName);
+		
 		
 		if("yes".equals(checkWork))
 			r2 = String.format(HTML, "It works!");
+		else r2 = String.format(HTML, "But it works!");
 		
 		
 		final String r = String.format(HTML, firstName + "<br/>" + lastName
