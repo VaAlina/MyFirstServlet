@@ -39,28 +39,29 @@ index.html
 </head>
 <body>
 <div class="center">
-	<form action="/forms" method="POST">
-		First name: <input type="text" name="firstname"><br> Last
-		name: <input type="text" name="lastname"><br> Occupation:
-		<input type="text" name="occupation"><br>
-		
 		<form action="/forms" method="POST">
+			First name: <input type="text" name="firstname"><br>
+			Last name: <input type="text" name="lastname"><br>
+			Occupation: <input type="text" name="occupation"><br>
+
+
+
 			Sex<br> <input type="radio" name="question" value="male">male<br>
 			<input type="radio" name="question" value="female">female<br>
-				
-		<form action="/forms" method="POST">
+
+
+
 			Will it work?<br> <input type="radio" name="check" value="yes">yes<br>
 			<input type="radio" name="check" value="no">no<br>
 			<button>Отправить</button>
 		</form>
-</div>
+	</div>
 </body>
 </html>
 
 ===========
 FormServlet
 ===========
-
 package ua.kiev.prog;
 
 import java.io.IOException;
@@ -90,7 +91,7 @@ public class FormsServlet extends HttpServlet {
 		
 		
 		if("yes".equals(checkWork))
-			r2 = String.format(HTML, "It works!");
+			r2 = String.format(HTML, "Yes, it works!");
 		else r2 = String.format(HTML, "But it works!");
 		
 		
