@@ -1,0 +1,89 @@
+=======
+web.xml
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+<servlet>
+	<servlet-name>Forms</servlet-name>
+	<servlet-class>ua.kiev.prog.FormsServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Forms</servlet-name>
+	<url-pattern>/forms</url-pattern>
+</servlet-mapping>
+<welcome-file-list>
+	<welcome-file>index.html</welcome-file>
+</welcome-file-list>
+</web-app>
+
+==========
+index.html
+==========
+<!DOCTYPE HTML>
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type“ content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Test</title>
+  </head>
+ <body>
+    <form action="/forms" method="POST">
+         Sex<br>
+         <input type="radio" name="question" value="male">male<br>
+         <input type="radio" name="question" value="female">female<br>
+    <form action="/forms" method="POST">
+        First name: <input type="text" name="firstname"><br>
+        Last name: <input type="text" name="lastname"><br>
+        Occupation: <input type="text" name="occupation"><br>
+        <button>Отправить</button>
+    </form>
+ </body>
+</html>
+
+===========
+FormServlet
+===========
+
+package ua.kiev.prog;
+
+import java.io.IOException;
+import javax.servlet.http.*;
+
+@SuppressWarnings("serial")
+public class FormsServlet extends HttpServlet {
+
+    private static final String HTML = "<html>" +
+         "<head><title>Test</title><link rel='stylesheet' href='style.css'></head>" + 
+         "<body><h1> %s </h1></body>" +
+         "</html>";
+
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)       
+            throws IOException 
+ {
+     final String firstName = req.getParameter("firstname");
+     final String lastName = req.getParameter("lastname");
+     final String occupation = req.getParameter("occupation");
+     
+     final String answer = req.getParameter("question");
+     String r1;
+     if ("female".equals(answer))
+         r1 = String.format(HTML, "Sorry. No female!!!");
+     else
+         r1 = String.format(HTML, ":(");
+     
+     final String r = String.format(HTML, firstName + "<br/>" + lastName+"<br/>"+ occupation+"<br/>"+r1);
+     resp.getWriter().println(r);
+ }
+}
