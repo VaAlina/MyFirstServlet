@@ -85,18 +85,18 @@ public class FormsServlet extends HttpServlet {
 		
 		
 		if ("female".equals(answer))
-			r1 = String.format(HTML, "Sorry. No female!!!");
+			r1 = "Sorry. No female!!!";
 		else 
-			r1 = String.format(HTML, "Wellcome" + firstName);
+			r1 = "Wellcome " + firstName;
 		
 		
 		if("yes".equals(checkWork))
-			r2 = String.format(HTML, "Yes, it works!");
-		else r2 = String.format(HTML, "But it works!");
+			r2 = "Yes, it works!";
+		else r2 = "But it works!";
 		
 		
 		final String r = String.format(HTML, firstName + "<br/>" + lastName
-				+ "<br/>" + occupation + "<br/>" + r1+" "+r2);
+				+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+r2);
 		resp.getWriter().println(r);
 	}
 }
