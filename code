@@ -39,65 +39,89 @@ index.html
 </head>
 <body>
 <div class="center">
-		<form action="/forms" method="POST">
-			First name: <input type="text" name="firstname"><br>
-			Last name: <input type="text" name="lastname"><br>
-			Occupation: <input type="text" name="occupation"><br>
+<form action="/forms" method="POST">
+Имя: <input type="text" name="firstname"><br>
+Фамилия: <input type="text" name="lastname"><br>
+email: <input type="text" name="occupation"><br>
+Пол:<br> <input type="radio" name="question" value="male">м<br>
+<input type="radio" name="question" value="female">ж<br>
+</div>
+
+<div class="center">
+Какого семейства технологий "Java" не существует?<br> 
+<input type="radio" name="check1" value="false">Java FX<br>
+<input type="radio" name="check1" value="false">Java Card<br>
+<input type="radio" name="check1" value="false">Java ME<br>
+<input type="radio" name="check1" value="true">Java HW<br>
+ 
+Дата официального выпуска Java 1.0.<br> 
+<input type="radio" name="check2" value="true">23 мая 1995<br>
+<input type="radio" name="check2" value="false">9 марта 1999<br>
+<input type="radio" name="check2" value="false">2 февраля 2001<br>
+<input type="radio" name="check2" value="false">18 июля 1993<br>
 
 
 
-			Sex<br> <input type="radio" name="question" value="male">male<br>
-			<input type="radio" name="question" value="female">female<br>
-
-
-
-			Will it work?<br> <input type="radio" name="check" value="yes">yes<br>
-			<input type="radio" name="check" value="no">no<br>
-			<button>Отправить</button>
-		</form>
-	</div>
+<button>Отправить</button>
+</form>
+</div>
 </body>
 </html>
+
 
 ===========
 FormServlet
 ===========
 package ua.kiev.prog;
-
 import java.io.IOException;
 import javax.servlet.http.*;
-
 @SuppressWarnings("serial")
 public class FormsServlet extends HttpServlet {
-	private static final String HTML = "<html>"
-			+ "<head><title>Test</title><link rel='stylesheet' href='style.css'></head>"
-			+ "<body><div class= 'center'> %s </div></body></html>";
+private static final String HTML = "<html>"
++ "<head><title>Test</title><link rel='stylesheet' href='style.css'></head>"
++ "<body><div class= 'center'> %s </div></body></html>";
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+final String firstName = req.getParameter("firstname");
+final String lastName = req.getParameter("lastname");
+final String occupation = req.getParameter("occupation");
+final String answer = req.getParameter("question");
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		final String firstName = req.getParameter("firstname");
-		final String lastName = req.getParameter("lastname");
-		final String occupation = req.getParameter("occupation");
-		final String answer = req.getParameter("question");
-		final String checkWork = req.getParameter("check");
-		String r1;
-		String r2 = null;
-		String r3 = req.getRemoteAddr();
-		
-		
-		if ("female".equals(answer))
-			r1 = "Sorry. No female!!!";
-		else 
-			r1 = "Wellcome " + firstName;
-		
-		
-		if("yes".equals(checkWork))
-			r2 = "Yes, it works!";
-		else r2 = "But it works!";
-		
-		
-		final String r = String.format(HTML, firstName + "<br/>" + lastName
-				+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+r2+"<br/>"+"Your ip is "+r3);
-		resp.getWriter().println(r);
-	}
+
+final String check1 = req.getParameter("check1");
+final String check2 = req.getParameter("check2");
+final String check3 = req.getParameter("check3");
+final String check4 = req.getParameter("check4");
+
+
+String r1;
+String r3 = req.getRemoteAddr();
+
+//Объявление строк для тестов по Java
+String ch1;
+String ch2;
+String ch3;
+String ch4;
+
+int counter=0;
+
+if ("female".equals(answer))
+r1 = "Sorry. No female!!!";
+else
+r1 = "Wellcome " + firstName;
+
+
+if("true".equals(check1))
+counter++; //ch1 = "Exellent!";
+else ch1 = "Try again!";
+
+if("true".equals(check2))
+counter++;//ch2 = "Exellent!";
+else ch2 = "Try again!";
+
+
+final String r = String.format(HTML, firstName + "<br/>" + lastName
++ "<br/>" + occupation + "<br/>" + r1+"<br/>"+"Your ip is "+r3+" <br/> You ansvered at "+counter+" qwestions correctly");
+resp.getWriter().println(r);
+}
 }
