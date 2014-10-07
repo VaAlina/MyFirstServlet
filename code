@@ -11,6 +11,16 @@ h1{
     font-size: 50pt;
     color: #a0615f;
 }
+button {
+	font-size: 25pt;
+	background: #a0615f;
+	width: 200px;
+	height: 50px;
+	padding: 3px 7px;
+	color: #333;
+	border-radius: 5px;
+	border: 1px solid #666;
+}
 .center {
 	width: auto; /* Ширина элемента в пикселах */
 	padding: 30px; /* Поля вокруг текста */
@@ -25,22 +35,13 @@ h1{
 .alert {
 	color: #a0615f;
 }
-
+.width{
+	width: 300px;
+}
 .qwestion {
 	font-size: 25pt;
+	width: 500px;
 }
-
-button {
-	font-size: 25pt;
-	background: #a0615f;
-	width: 200px;
-	height: 50px;
-	padding: 3px 7px;
-	color: #333;
-	border-radius: 5px;
-	border: 1px solid #666;
-}
-
 =======
 web.xml
 =======
@@ -83,10 +84,10 @@ index.html
 <body>
 <div class="center"><h1>Тест. Ответь на 4 вопроса по Java.</h1>
 <form action="/forms" method="POST">
-<span class = "qwestion">Имя: </span><input type="text" name="firstname" required placeholder="Имя"><br>
-<span class = "qwestion">Фамилия: </span> <input type="text" name="lastname" placeholder="Фамилия"><br>
-<span class = "qwestion">Професия: </span><input type="text" name="occupation" required placeholder="программист"><br>
-<span class = "qwestion">email:  </span><input type="text" name="email" required placeholder="email@example.com"><br>
+<span class = "qwestion">Имя: </span><input type="text" name="firstname" class="width" required placeholder="Имя"><br>
+<span class = "qwestion">Фамилия: </span> <input type="text" name="lastname" class="width" placeholder="Фамилия"><br>
+<span class = "qwestion">Професия: </span><input type="text" name="occupation" class="width" required placeholder="программист"><br>
+<span class = "qwestion">email:  </span><input type="text" name="email" class="width" required placeholder="email@example.com"><br>
 <span class = "qwestion">Пол: </span><input type="radio" name="question" value="male">м
 <input type="radio" name="question" value="female">ж<br>
 
@@ -120,7 +121,6 @@ index.html
 </div>
 </body>
 </html>
-
 ===========
 FormServlet
 ===========
