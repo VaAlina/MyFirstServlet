@@ -1,3 +1,68 @@
+=====================
+FormServlet version 2
+=====================
+package ua.kiev.prog;
+import java.io.IOException;
+import javax.servlet.http.*;
+@SuppressWarnings("serial")
+public class FormsServlet extends HttpServlet {
+private static final String HTML = "<html>"
++ "<head><title>Test</title>"
++ "<link rel='stylesheet' href='style.css'><meta charset='utf-8'></head>"
++ "<body><div class= 'center'> %s </div></body></html>";
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+final String firstName = req.getParameter("firstname");
+final String lastName = req.getParameter("lastname");
+final String occupation = req.getParameter("occupation");
+final String answer = req.getParameter("question");
+final String getAge = req.getParameter("age");
+
+final String check1 = req.getParameter("check1");
+final String check2 = req.getParameter("check2");
+final String check3 = req.getParameter("check3");
+final String check4 = req.getParameter("check4");
+
+
+String r1;
+String r3 = req.getRemoteAddr();
+
+int counter=0;
+String result;
+
+if ("age".equals("20"))
+r1 = "You are almost 20!!!";
+else
+r1 = "Wellcome " + firstName;
+
+
+if ("female".equals(answer))
+r1 = "Sorry. No female!!!";
+else
+r1 = "Wellcome " + firstName;
+
+if("true".equals(check1))
+counter++; 
+
+if("true".equals(check2))
+counter++;
+
+if("true".equals(check3))
+counter++;
+
+if(counter == 0){
+	result = "<p class = 'alert'>You should give at least one correct answer</p>";//"Вы не ответили правильно ни на один вопрос.";
+}else{result = " <br/> You ansvered at "+counter+" qwestions correctly";
+		}
+
+
+final String r = String.format(HTML, firstName + "<br/>" + lastName
++ "<br/>" + occupation + "<br/>" + r1+"<br/>"+"Your ip is "+r3+result);
+resp.getWriter().println(r);
+}
+}
+
+
 =======
 web.xml
 =======
