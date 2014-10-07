@@ -82,6 +82,7 @@ public class FormsServlet extends HttpServlet {
 		final String checkWork = req.getParameter("check");
 		String r1;
 		String r2 = null;
+		String r3 = req.getRemoteAddr();
 		
 		
 		if ("female".equals(answer))
@@ -96,7 +97,7 @@ public class FormsServlet extends HttpServlet {
 		
 		
 		final String r = String.format(HTML, firstName + "<br/>" + lastName
-				+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+r2);
+				+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+r2+"<br/>"+"Your ip is "+r3);
 		resp.getWriter().println(r);
 	}
 }
