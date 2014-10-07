@@ -1,67 +1,3 @@
-=====================
-FormServlet version 2
-=====================
-package ua.kiev.prog;
-import java.io.IOException;
-import javax.servlet.http.*;
-@SuppressWarnings("serial")
-public class FormsServlet extends HttpServlet {
-private static final String HTML = "<html>"
-+ "<head><title>Test</title>"
-+ "<link rel='stylesheet' href='style.css'><meta charset='utf-8'></head>"
-+ "<body><div class= 'center'> %s </div></body></html>";
-public void doPost(HttpServletRequest req, HttpServletResponse resp)
-throws IOException {
-final String firstName = req.getParameter("firstname");
-final String lastName = req.getParameter("lastname");
-final String occupation = req.getParameter("occupation");
-final String answer = req.getParameter("question");
-final String getAge = req.getParameter("age");
-
-final String check1 = req.getParameter("check1");
-final String check2 = req.getParameter("check2");
-final String check3 = req.getParameter("check3");
-final String check4 = req.getParameter("check4");
-
-
-String r1;
-String r3 = req.getRemoteAddr();
-
-int counter=0;
-String result;
-
-if ("age".equals("20"))
-r1 = "You are almost 20!!!";
-else
-r1 = "Wellcome " + firstName;
-
-
-if ("female".equals(answer))
-r1 = "Sorry. No female!!!";
-else
-r1 = "Wellcome " + firstName;
-
-if("true".equals(check1))
-counter++; 
-
-if("true".equals(check2))
-counter++;
-
-if("true".equals(check3))
-counter++;
-
-if(counter == 0){
-	result = "<p class = 'alert'>You should give at least one correct answer</p>";//"Вы не ответили правильно ни на один вопрос.";
-}else{result = " <br/> You ansvered at "+counter+" qwestions correctly";
-		}
-
-
-final String r = String.format(HTML, firstName + "<br/>" + lastName
-+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+"Your ip is "+r3+result);
-resp.getWriter().println(r);
-}
-}
-
 
 =======
 web.xml
@@ -103,36 +39,45 @@ index.html
 <title>Test</title>
 </head>
 <body>
-<div class="center">
+<div class="center"><h1>Тест. Ответь на 4 вопроса по Java.</h1>
 <form action="/forms" method="POST">
-Имя: <input type="text" name="firstname"><br>
-Фамилия: <input type="text" name="lastname"><br>
-email: <input type="text" name="occupation"><br>
-Пол:<br> <input type="radio" name="question" value="male">м<br>
+<span class = "qwestion">Имя: </span><input type="text" name="firstname" required placeholder="Имя"><br>
+<span class = "qwestion">Фамилия: </span> <input type="text" name="lastname" placeholder="Фамилия"><br>
+<span class = "qwestion">Професия: </span><input type="text" name="occupation" required placeholder="программист"><br>
+<span class = "qwestion">email:  </span><input type="text" name="email" required placeholder="email@example.com"><br>
+<span class = "qwestion">Пол: </span><input type="radio" name="question" value="male">м
 <input type="radio" name="question" value="female">ж<br>
-</div>
+
 
 <div class="center">
 Какого семейства технологий "Java" не существует?<br> 
 <input type="radio" name="check1" value="false">Java FX<br>
 <input type="radio" name="check1" value="false">Java Card<br>
 <input type="radio" name="check1" value="false">Java ME<br>
-<input type="radio" name="check1" value="true">Java HW<br>
+<input type="radio" name="check1" value="true">Java PE<br><br>
  
 Дата официального выпуска Java 1.0.<br> 
 <input type="radio" name="check2" value="true">23 мая 1995<br>
 <input type="radio" name="check2" value="false">9 марта 1999<br>
 <input type="radio" name="check2" value="false">2 февраля 2001<br>
-<input type="radio" name="check2" value="false">18 июля 1993<br>
+<input type="radio" name="check2" value="false">18 июля 1993<br><br>
 
+Сериализация это<br> 
+<input type="radio" name="check3" value="true">
+процесс перевода какой-либо структуры данных в последовательность бит.<br>
+<input type="radio" name="check3" value="false">
+чтение объекта с выходного потока и всстановление его в оперативной памяти.<br><br>
 
+Как расшифровывается "nio" в java.nio?<br> 
+<input type="radio" name="check4" value="true">new input/output<br>
+<input type="radio" name="check4" value="false">non blocking input/output<br><br>
 
 <button>Отправить</button>
+<br>
 </form>
 </div>
 </body>
 </html>
-
 
 ===========
 FormServlet
@@ -143,50 +88,57 @@ import javax.servlet.http.*;
 @SuppressWarnings("serial")
 public class FormsServlet extends HttpServlet {
 private static final String HTML = "<html>"
-+ "<head><title>Test</title><link rel='stylesheet' href='style.css'></head>"
++ "<head><title>Test</title>"
++ "<link rel='stylesheet' href='style.css'><meta charset='utf-8'></head>"
 + "<body><div class= 'center'> %s </div></body></html>";
 public void doPost(HttpServletRequest req, HttpServletResponse resp)
 throws IOException {
 final String firstName = req.getParameter("firstname");
 final String lastName = req.getParameter("lastname");
 final String occupation = req.getParameter("occupation");
+final String email = req.getParameter("email");
 final String answer = req.getParameter("question");
-
 
 final String check1 = req.getParameter("check1");
 final String check2 = req.getParameter("check2");
 final String check3 = req.getParameter("check3");
 final String check4 = req.getParameter("check4");
 
-
-String r1;
-String r3 = req.getRemoteAddr();
-
-//Объявление строк для тестов по Java
-String ch1;
-String ch2;
-String ch3;
-String ch4;
+String sex;
+String ip = req.getRemoteAddr();
+String desition;
 
 int counter=0;
+String result;
 
-if ("female".equals(answer))
-r1 = "Sorry. No female!!!";
-else
-r1 = "Wellcome " + firstName;
-
+if ("female".equals(answer)){
+sex = "But you are not wellcomed, because you are female. ";
+desition = "<br/>Thanks for sharing your information. <br/>However we will never call you.";
+}else{
+sex = "You are wellcome.";
+desition = "<br/>We will send you our desition on your email - "+ email+".";
+}
 
 if("true".equals(check1))
-counter++; //ch1 = "Exellent!";
-else ch1 = "Try again!";
+counter++; 
 
 if("true".equals(check2))
-counter++;//ch2 = "Exellent!";
-else ch2 = "Try again!";
+counter++;
+
+if("true".equals(check3))
+counter++;
+
+if("true".equals(check4))
+counter++;
+
+if(counter == 0){
+	result = "<b class = 'alert'>you should give at least one correct answer!</b>";//"Вы не ответили правильно ни на один вопрос.";
+}else{result = " you ansvered at "+counter+" qwestions correctly. ";
+		}
 
 
-final String r = String.format(HTML, firstName + "<br/>" + lastName
-+ "<br/>" + occupation + "<br/>" + r1+"<br/>"+"Your ip is "+r3+" <br/> You ansvered at "+counter+" qwestions correctly");
+final String r = String.format(HTML, firstName + " " + lastName+" as we know, you are a "+ occupation 
+ +".<br/>" + sex+"<br/> Your ip is "+ip+"<br/> And "+result+" "+desition);
 resp.getWriter().println(r);
 }
 }
