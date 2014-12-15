@@ -1,0 +1,41 @@
+body {
+	background-color: #FFF8DC;
+	font-family: serif;
+	font-size: 20pt;
+	color: #333;
+}
+h1{
+    font-size: 50pt;
+    color: #a0615f;
+}
+button {
+	font-size: 25pt;
+	background: #a0615f;
+	width: 200px;
+	height: 50px;
+	padding: 3px 7px;
+	color: #333;
+	border-radius: 5px;
+	border: 1px solid #666;
+}
+.center {
+	width: auto; /* Ширина элемента в пикселах */
+	padding: 30px; /* Поля вокруг текста */
+	background: #5F9EA0; /* Цвет фона */
+	border: 2px solid #426d6f;
+	margin-top: 10px;
+	margin-left:5%;/* Располжить по-центру */
+    margin-right:5%;/* Располжить по-центру */
+    
+}
+
+.alert {
+	color: #a0615f;
+}
+.width{
+	width: 300px;
+}
+.qwestion {
+	font-size: 25pt;
+	width: 500px;
+}
